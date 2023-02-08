@@ -1,8 +1,9 @@
 # TODO
 
- - [ ] 支持配置不同的模型（默认
+- [ ] 支持配置不同的模型（默认
 
 # query demo
+
 ```
 POST /v1/completions HTTP/1.1
 Accept: application/json, text/plain, */*
@@ -23,3 +24,7 @@ Connection: close
     "presence_penalty":0
 }
 ```
+
+# 参考文档
+
+- https://juejin.cn/post/7167701003976835102
