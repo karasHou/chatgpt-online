@@ -12,6 +12,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@ant-design/pro-components": "^2.0.1",
+    "@uiw/react-md-editor": "^3.20.2",
     "@umijs/max": "^4.0.50",
     "antd": "^5.0.0"
   },

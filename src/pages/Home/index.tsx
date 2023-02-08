@@ -1,35 +1,66 @@
-import { useModel } from '@umijs/max';
-import { Button, Divider, Drawer, message, Input } from 'antd';
-import styles from './index.less';
-import React, { useEffect, useState } from 'react';
+import { Button, Form, Input, Card } from 'antd';
+import React, { useState } from 'react';
+import MDEditor from '@uiw/react-md-editor';
+import { useLocation } from 'umi';
 import { queryCompletions } from '@/services/chat';
 
+const { TextArea } = Input;
+
 const HomePage: React.FC = () => {
-  const [inputVal, setInputVal] = useState('');
+  const [value, setMkdStr] = useState<string>('');
+  const [loadingFLag, setFlag] = useState(false);
 
-  // 使用 useEffect 来实现请求
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await queryCompletions({
-        prompt: '测试',
-        token: inputVal,
-      });
+  const { search } = useLocation();
+  const urlParams = new URLSearchParams(search);
 
-      console.log(data);
-    };
+  const postCompletions = async (values: any) => {
+    const token = urlParams.get('token') || '';
+    setFlag(true);
+    const data = await queryCompletions({ prompt: values.prompt, token });
+    console.log('data: ', data);
 
-    fetchData().catch(console.error);
-  }, [inputVal]);
+    setFlag(false);
 
-  const handleInputChange = (e: Event) => {
-    setInputVal(e.target.value);
+    setMkdStr(data?.choices?.[0]?.text || '暂无结果');
+  };
+
+  const onFinish = (values: any) => {
+    console.log('values: ', values);
+    postCompletions(values);
   };
 
   return (
-    <>
-      <Input onChange={handleInputChange} value={inputVal}></Input>
-      <p>{inputVal}</p>
-    </>
+    <div>
+      <Form
+        name="basic"
+        labelCol={{ span: 8 }}
+        wrapperCol={{ span: 16 }}
+        style={{ maxWidth: 600 }}
+        initialValues={{ prompt: 'JS实现一个深度优先遍历' }}
+        onFinish={onFinish}
+        autoComplete="off"
+      >
+        <Form.Item
+          label="请输入询问的问题"
+          name="prompt"
+          rules={[{ required: true, message: '请输入问题' }]}
+        >
+          <TextArea rows={6}></TextArea>
+        </Form.Item>
+
+        {/* 提交 */}
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button loading={loadingFLag} type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
+      {value && (
+        <Card>
+          <MDEditor.Markdown source={value} />
+        </Card>
+      )}
+    </div>
   );
 };
 
