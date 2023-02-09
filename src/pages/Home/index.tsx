@@ -52,7 +52,7 @@ const HomePage: React.FC = () => {
           name="token"
           tooltip="获取API keys请访问: https://platform.openai.com/account/api-keys"
         >
-          <Input></Input>
+          <Input.Password></Input.Password>
         </Form.Item>
         <Form.Item
           label="请输入询问的问题"
