@@ -1,5 +1,7 @@
 import { defineConfig } from '@umijs/max';
 
+const basePrefix = '/chatgpt-online';
+
 export default defineConfig({
   antd: {},
   access: {},
@@ -9,16 +11,12 @@ export default defineConfig({
   layout: {
     title: 'ChatGPT Online',
   },
-  base: '/chatgpt-online',
-  publicPath: '/chatgpt-online/',
+  base: basePrefix,
+  publicPath: `${basePrefix}/`,
   routes: [
     {
-      path: '/',
-      redirect: '/home',
-    },
-    {
       name: '首页',
-      path: '/home',
+      path: '/',
       component: './Home',
     },
     // {
