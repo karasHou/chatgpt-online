@@ -29,4 +29,6 @@ git commit -m 'deploy'
 # 如果是部署到 https://<USERNAME>.github.io/<REPO>
 git push -f git@github.com:karasHou/chatgpt-online.git master:gh-pages
 
+rm -rf ./git
+
 cd -
