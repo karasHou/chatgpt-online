@@ -7,13 +7,15 @@
     "postinstall": "max setup",
     "prepare": "husky install",
     "setup": "max setup",
-    "start": "npm run dev"
+    "start": "npm run dev",
+    "deploy": "bash ./deploy.sh"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@ant-design/pro-components": "^2.0.1",
     "@uiw/react-md-editor": "^3.20.2",
     "@umijs/max": "^4.0.50",
+    "ahooks": "^3.7.4",
     "antd": "^5.0.0"
   },
   "devDependencies": {
