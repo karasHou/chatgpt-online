@@ -23,7 +23,7 @@ const HomePage: React.FC = () => {
   const postCompletions = async (values: any) => {
     const { prompt, token } = values;
     // 本地化 || 地址栏 || input输入
-    const tokenValue = token || urlParams.get('token')  || storageToken;
+    const tokenValue = token || urlParams.get('token') || storageToken;
     console.log('storageToken: ', storageToken);
 
     if (!tokenValue) {
@@ -31,7 +31,7 @@ const HomePage: React.FC = () => {
       return;
     }
     // 设置本地化存储
-    setToken(token);
+    setToken(tokenValue);
 
     setFlag(true);
     const data = await queryCompletions({ prompt, token: tokenValue });
