@@ -9,6 +9,7 @@ export default defineConfig({
   layout: {
     title: 'ChatGPT Online',
   },
+  base: '/chatgpt-online',
   routes: [
     {
       path: '/',
