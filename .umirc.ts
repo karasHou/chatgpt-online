@@ -10,6 +10,7 @@ export default defineConfig({
     title: 'ChatGPT Online',
   },
   base: '/chatgpt-online',
+  publicPath: '/chatgpt-online/',
   routes: [
     {
       path: '/',
