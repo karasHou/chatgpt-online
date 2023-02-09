@@ -1,4 +1,4 @@
-import { Button, Form, Input, Card } from 'antd';
+import { Button, Form, Input, Card, message } from 'antd';
 import React, { useState } from 'react';
 import MDEditor from '@uiw/react-md-editor';
 import { useLocation } from 'umi';
@@ -14,9 +14,16 @@ const HomePage: React.FC = () => {
   const urlParams = new URLSearchParams(search);
 
   const postCompletions = async (values: any) => {
-    const token = urlParams.get('token') || '';
+    const { prompt, token } = values;
+    const tokenValue = urlParams.get('token') || token;
+
+    if (!token) {
+      message.error('请输入API keys');
+      return;
+    }
+
     setFlag(true);
-    const data = await queryCompletions({ prompt: values.prompt, token });
+    const data = await queryCompletions({ prompt, token: tokenValue });
     console.log('data: ', data);
 
     setFlag(false);
@@ -40,6 +47,13 @@ const HomePage: React.FC = () => {
         onFinish={onFinish}
         autoComplete="off"
       >
+        <Form.Item
+          label="API keys"
+          name="token"
+          tooltip="获取API keys请访问: https://platform.openai.com/account/api-keys"
+        >
+          <Input></Input>
+        </Form.Item>
         <Form.Item
           label="请输入询问的问题"
           name="prompt"

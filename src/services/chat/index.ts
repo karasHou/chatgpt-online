@@ -41,7 +41,7 @@ export async function queryCompletions(
     // dataField: ""
     ...(options || {}),
   }).catch((e) => {
-    message.error(e);
+    message.error(e?.response?.data?.error?.message);
   });
 }
 
