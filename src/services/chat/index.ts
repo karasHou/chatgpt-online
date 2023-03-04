@@ -8,6 +8,11 @@ interface IQuerData {
   token?: string;
 }
 
+// 3.5新模型
+const REQ_URL = 'https://api.openai.com/v1/chat/completions';
+// 旧模型
+// const REQ_URL = "https://api.openai.com/v1/completions";
+
 /**
  * 请求结论
  * @param params
@@ -15,14 +20,14 @@ interface IQuerData {
  * @returns
  */
 export async function queryCompletions(
-  data: IQuerData = { model: 'text-davinci-003-playground' },
+  data: IQuerData = { model: 'gpt-3.5-turbo' },
   options?: { [key: string]: any },
 ) {
   const { token, prompt } = data;
 
   // 一些默认的选项
   const defaultData = () => ({
-    model: 'text-davinci-003-playground',
+    model: 'gpt-3.5-turbo',
     temperature: 1,
     top_p: 1,
     max_tokens: 2048,
@@ -32,7 +37,7 @@ export async function queryCompletions(
   });
   const newData = { prompt, ...defaultData() } as IQuerData;
 
-  return request<any>('https://api.openai.com/v1/completions', {
+  return request<any>(REQ_URL, {
     method: 'POST',
     data: newData,
     headers: {
